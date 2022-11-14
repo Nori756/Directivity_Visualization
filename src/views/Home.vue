@@ -8,7 +8,7 @@
           height="30px"
           flat
         >
-          <v-toolbar-title  class=" text-title-1 font-weight-bold">Voice2People (V2P) estimates what kind of target (age/gender) the text is for and visualizes the directivity of the text.      
+          <v-toolbar-title  class=" text-title-1 font-weight-bold">Voice2People (V2P) は文章がどのような対象（年代・性別）向けであるか推定し，文章の指向性を可視化します          
           </v-toolbar-title>
         </v-toolbar>
 
@@ -19,7 +19,7 @@
           height="25px"
           flat
         >
-          <v-toolbar-title class="text-body-2 font-weight-bold" >Sample Texts       
+          <v-toolbar-title class="text-body-2 font-weight-light" >サンプルテキスト          
           </v-toolbar-title>
         </v-toolbar>
   
@@ -62,7 +62,7 @@
         <v-form ref="whole_form">
      <v-textarea
           
-            label="Enter text to be analyzed"
+            label="分析対象テキスト"
             outlined
             ref="form"
             v-model="TextAreaVal"
@@ -80,7 +80,7 @@
     class="ma-1 mr-3 white--text text--lighten-1"
     type="submit" @click="exec"
     >
-      Start Analysis
+      分析開始
     </v-btn>
     
     <v-btn
@@ -89,7 +89,7 @@
        class="ma-1 mr-5 white--text text--lighten-1"
        @click="reset"
     >
-      Clear
+      クリア
     </v-btn>
    
   </v-row>
@@ -101,7 +101,7 @@
           height="40px"
           flat>
     
-           <v-toolbar-title  class="font-weight-black">Analysis Result</v-toolbar-title>
+           <v-toolbar-title  class="font-weight-black">分析結果</v-toolbar-title>
         </v-toolbar>
     <RadarChart ref="rader_component"/>
 
@@ -114,7 +114,7 @@
 
     
     </div>
-      
+        <subscribe />  
   </div>
 </template>
 
@@ -128,7 +128,7 @@ export default {
   components: {
     RadarChart,
     Social: () => import('@/components/home/Social'),
-    
+    Subscribe: () => import('@/components/home/Subscribe'),
   
   
   },
@@ -137,7 +137,7 @@ export default {
       return{
       TextAreaVal: '',
       // 入力規則
-      required: value => !!value || "Please input text", 
+      required: value => !!value || "必ず入力してください", 
       success: false,}
           
     
