@@ -1,7 +1,6 @@
 <template>
   <div id="app" class="ma-10">
   <div>
-     
           <v-toolbar
           class="ma-2"
           color="white"
@@ -104,6 +103,68 @@
            <v-toolbar-title  class="font-weight-black">分析結果</v-toolbar-title>
         </v-toolbar>
     <RadarChart ref="rader_component"/>
+    
+    <v-simple-table class="mt-6">
+    <template v-slot:default>
+      <thead class="indigo lighten-5">
+        <tr>
+          <th class="text-left">
+            10代女性
+          </th>
+          <th class="text-left">
+            10代男性
+          </th>
+          <th class="text-left">
+            20代女性
+          </th>
+          <th class="text-left">
+            20代男性
+          </th>
+          <th class="text-left">
+            30代女性
+          </th>
+          <th class="text-left">
+            30代男性
+          </th>
+          <th class="text-left">
+            40代女性
+          </th>
+          <th class="text-left">
+            40代男性
+          </th>
+          <th class="text-left">
+            50代女性
+          </th>
+          <th class="text-left">
+            50代男性
+          </th>
+          <th class="text-left">
+            60代女性
+          </th>
+          <th class="text-left">
+            60代男性
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="data in directivity_data">
+          <td>{{ data.F10 }}</td>
+          <td>{{ data.M10 }}</td>
+          <td>{{ data.F20 }}</td>
+          <td>{{ data.M20 }}</td>
+          <td>{{ data.F30 }}</td>
+          <td>{{ data.M30 }}</td>
+          <td>{{ data.F40 }}</td>
+          <td>{{ data.M40 }}</td>
+          <td>{{ data.F50 }}</td>
+          <td>{{ data.M50 }}</td>
+          <td>{{ data.F60 }}</td>
+          <td>{{ data.M60 }}</td>
+
+        </tr>
+      </tbody>
+    </template>
+  </v-simple-table>
 
     <v-toolbar
           class="mb-1"
@@ -119,9 +180,7 @@
 </template>
 
 <script>
-
 import RadarChart from "../components/RadarChart.vue";
-
 
 export default {
   name: "Tool",
@@ -130,20 +189,37 @@ export default {
     Social: () => import('@/components/home/Social'),
     Subscribe: () => import('@/components/home/Subscribe'),
   
-  
   },
-  data:function() {
+  data(){
         
       return{
       TextAreaVal: '',
       // 入力規則
       required: value => !!value || "必ず入力してください", 
-      success: false,}
+      success: false,
+      directivity_data: [
+          {
+            F10:0,
+            M10:0,
+            F20:0,
+            M20:0,
+            F30:0,
+            M30:0,
+            F40:0,
+            M40:0,
+            F50:0,
+            M50:0,
+            F60:0,
+            M60:0,
+          },
+          ]
+      
+      }
           
     
   },
   methods: {
-
+  
       exec(){
         if (this.$refs.whole_form.validate()) {
          this.success = true;

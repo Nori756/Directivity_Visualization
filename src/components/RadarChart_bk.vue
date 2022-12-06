@@ -41,31 +41,17 @@ export default {
   },
   methods: {
 
-    roundup(value) {
-      const n = 3;
-      return Math.round(value * Math.pow(10, n) ) / Math.pow(10, n);
-    },
-
     sendAPI(formtext){
+
       var directivity;
     
-      this.axios.post('https://aoi.naist.jp/transmission/transmit/?text=' + formtext)
-      .then((response) => {
-                //console.log(response.data);
-                //console.log({F10:response.data.F10[0], M10:response.data.F20[0]});
-          this.$parent.directivity_data = [{
-            F10:this.roundup(response.data.F10[0]), F20:this.roundup(response.data.F20[0]),
-            F30:this.roundup(response.data.F30[0]), F40:this.roundup(response.data.F40[0]),
-            F50:this.roundup(response.data.F50[0]), F60:this.roundup(response.data.F60[0]),
-            M10:this.roundup(response.data.M10[0]), M20:this.roundup(response.data.M20[0]),
-            M30:this.roundup(response.data.M30[0]), M40:this.roundup(response.data.M40[0]),
-            M50:this.roundup(response.data.M50[0]), M60:this.roundup(response.data.M60[0]),
-          
-          }];
-              
-                //this.posts = res.data.posts;
-
-          this.renderChart(
+      this.axios.post('https://aoi.naist.jp/transmission/transmit/?text=' + formtext, 
+              ).then(response => directivity = response 
+              // this.$parent.directivity_data = [{ target: 'Froze', score: 159}] ,
+              ).catch(error => console.log(error))
+         console.log(directivity.data.M10[0])
+         
+         this.renderChart(
           {
             labels: [
               "10代",
@@ -104,10 +90,6 @@ export default {
           },
           { responsive: true, maintainAspectRatio: false }
         )
-              })
-              .catch((err) => {
-                console.log(err);
-              });
       }
       
       }
