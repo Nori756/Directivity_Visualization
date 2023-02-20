@@ -22,6 +22,8 @@ export default {
               borderColor: "rgba(94,101,182,1)",
               pointBackgroundColor: "rgba(94,101,182,1)",
               pointBorderColor: "#fff",
+              pointStyle: "triangle",     // 点のスタイル 三角
+              pointRadius: 5,
               pointHoverBackgroundColor: "#fff",
               pointHoverBorderColor: "rgba(94,101,182,1)",
             },
@@ -36,7 +38,16 @@ export default {
             }
           ]
         },
-        { responsive: true, maintainAspectRatio: false }
+        { responsive: true, maintainAspectRatio: false,
+
+        legend: {              // 凡例の表示位置
+              labels: {              // 凡例の表示内容
+            fontSize: 12,           // 文字のサイズ
+            boxWidth: 12,           // 点のサイズ
+            usePointStyle: true     // 凡例図形を点にする
+        }}
+        
+        }
       )
   },
   methods: {
@@ -46,12 +57,12 @@ export default {
         this.renderChart(
           {
             labels: [
-              "10s",
-              "20s",
-              "30s",
-              "40s",
-              "50s",
-              "60s",
+             "10代",
+            "20代",
+            "30代",
+            "40代",
+            "50代",
+            "60代",
             
             ],
             datasets: [
@@ -61,9 +72,11 @@ export default {
                 borderColor: "rgba(94,101,182,1)",
                 pointBackgroundColor: "rgba(94,101,182,1)",
                 pointBorderColor: "#fff",
+                pointStyle: "triangle",     // 点のスタイル 三角
+                pointRadius: 5,
                 pointHoverBackgroundColor: "#fff",
                 pointHoverBorderColor: "rgba(94,101,182,1)",
-                data: [10, 3, 0, 0, 0, 0]
+                data: [5, 5, 5, 4, 4, 5]
 
               },
               {
@@ -74,11 +87,19 @@ export default {
                 pointBorderColor: "#fff",
                 pointHoverBackgroundColor: "#fff",
                 pointHoverBorderColor: "rgba(255,99,132,1)",
-                data: [5, 1, 0, 0, 0, 0]
+                data: [1, 2, 3, 4, 1, 1]
               }
             ]
           },
-          { responsive: true, maintainAspectRatio: false }
+          { responsive: true, maintainAspectRatio: false,
+              legend: {              // 凡例の表示位置
+              labels: {              // 凡例の表示内容
+            fontSize: 12,           // 文字のサイズ
+            boxWidth: 12,           // 点のサイズ
+            usePointStyle: true     // 凡例図形を点にする
+        }}
+          
+           }
         )
     }
       }

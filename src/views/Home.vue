@@ -5,8 +5,7 @@
           class="ma-2"
           color="white"
           height="30px"
-          flat
-        >
+          flat>
           <v-toolbar-title  class=" text-title-1 font-weight-bold">Voice2People (V2P) は文章がどのような対象（年代・性別）向けであるか推定し，文章の指向性を可視化します          
           </v-toolbar-title>
         </v-toolbar>
@@ -16,8 +15,7 @@
           class="ml-1 mt-3"
           color="white"
           height="25px"
-          flat
-        >
+          flat>
           <v-toolbar-title class="text-body-2 font-weight-light" >サンプルテキスト          
           </v-toolbar-title>
         </v-toolbar>
@@ -86,9 +84,7 @@
       depressed
       color="red lighten-1"
        class="ma-1 mr-5 white--text text--lighten-1"
-       @click="reset"
-    >
-      クリア
+       @click="reset">クリア
     </v-btn>
    
   </v-row>
@@ -103,73 +99,32 @@
            <v-toolbar-title  class="font-weight-black">分析結果</v-toolbar-title>
         </v-toolbar>
     <RadarChart ref="rader_component"/>
-    
-    <v-simple-table class="mt-6">
-    <template v-slot:default>
-      <thead class="indigo lighten-5">
-        <tr>
-          <th class="text-left">
-            10代女性
-          </th>
-          <th class="text-left">
-            10代男性
-          </th>
-          <th class="text-left">
-            20代女性
-          </th>
-          <th class="text-left">
-            20代男性
-          </th>
-          <th class="text-left">
-            30代女性
-          </th>
-          <th class="text-left">
-            30代男性
-          </th>
-          <th class="text-left">
-            40代女性
-          </th>
-          <th class="text-left">
-            40代男性
-          </th>
-          <th class="text-left">
-            50代女性
-          </th>
-          <th class="text-left">
-            50代男性
-          </th>
-          <th class="text-left">
-            60代女性
-          </th>
-          <th class="text-left">
-            60代男性
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="data in directivity_data">
-          <td>{{ data.F10 }}</td>
-          <td>{{ data.M10 }}</td>
-          <td>{{ data.F20 }}</td>
-          <td>{{ data.M20 }}</td>
-          <td>{{ data.F30 }}</td>
-          <td>{{ data.M30 }}</td>
-          <td>{{ data.F40 }}</td>
-          <td>{{ data.M40 }}</td>
-          <td>{{ data.F50 }}</td>
-          <td>{{ data.M50 }}</td>
-          <td>{{ data.F60 }}</td>
-          <td>{{ data.M60 }}</td>
-
-        </tr>
-      </tbody>
-    </template>
-  </v-simple-table>
 
     <v-toolbar
           class="mb-1"
           color="white"
-          height="280px"
+          height="100px"
+          flat>
+    </v-toolbar>
+
+    <v-container>
+  <v-row>
+    <v-col cols="6">
+    <PieChart ref="pie_component"/>
+    
+    </v-col>
+    <v-col cols="6">
+  <BarChart ref="bar_component"/>
+    </v-col>
+    
+  </v-row>
+</v-container>
+    
+  
+    <v-toolbar
+          class="mb-1"
+          color="white"
+          height="200px"
           flat>
     </v-toolbar>
 
@@ -181,11 +136,15 @@
 
 <script>
 import RadarChart from "../components/RadarChart.vue";
+import BarChart from "../components/BarChart.vue";
+import PieChart from "../components/PieChart.vue";
 
 export default {
   name: "Tool",
   components: {
     RadarChart,
+    BarChart,
+    PieChart,
     Social: () => import('@/components/home/Social'),
     Subscribe: () => import('@/components/home/Subscribe'),
   
@@ -218,6 +177,16 @@ export default {
           
     
   },
+  watch: {
+    directivity_data: function(newVal, oldVal) {
+      
+      var graph_values = newVal[0]
+      this.$refs.bar_component.makeBarGraph(graph_values);
+      this.$refs.pie_component.makePieGraph(graph_values);
+      
+    }
+    },
+
   methods: {
   
       exec(){
@@ -231,6 +200,10 @@ export default {
       },
       reset () {
         this.$refs.form.reset()
+        this.$refs.rader_component.clearRaderGraph();
+        this.$refs.bar_component.clearBarGraph();
+        this.$refs.pie_component.clearPieGraph();
+
       },
      first_button(){
       // ルフィ
