@@ -107,11 +107,13 @@ export default {
 
     sendAPI(formtext){
       var directivity;
-    
-      this.axios.post('https://aoi.naist.jp/transmission/transmit/?text=' + formtext)
+      const json = JSON.stringify({ text: formtext });
+      //this.axios.post('https://aoi.naist.jp/transmission/transmit/?text=' + formtext)
+      this.axios.post('https://tsukinami-system.com:8081/direct', json)
       .then((response) => {
-                //console.log(response.data);
-                //console.log({F10:response.data.F10[0], M10:response.data.F20[0]});
+         // console.log(response.data);
+         // console.log({F10:aaa.data.F10[0], M10:aaa.data.F20[0]});
+
           this.$parent.directivity_data = [{
             F10:this.roundup(response.data.F10[0]), F20:this.roundup(response.data.F20[0]),
             F30:this.roundup(response.data.F30[0]), F40:this.roundup(response.data.F40[0]),
